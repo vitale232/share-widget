@@ -1,1 +1,6 @@
 .DS_Store
+node_modules
+
+# Ignore transpiled JavaScript and mappings
+*.js
+*.js.map

@@ -9,7 +9,7 @@ import Collection = require("esri/core/Collection");
 import {
   subclass,
   declared,
-  property
+  property,
 } from "esri/core/accessorSupport/decorators";
 
 // esri.views
@@ -47,23 +47,23 @@ const ShareItemCollection = Collection.ofType<ShareItem>(ShareItem);
 const FACEBOOK_ITEM = new ShareItem({
   id: "facebook",
   name: "Facebook",
-  urlTemplate: "https://www.facebook.com/sharer/sharer.php?s=100&u={url}"
+  urlTemplate: "https://www.facebook.com/sharer/sharer.php?s=100&u={url}",
 });
 const TWITTER_ITEM = new ShareItem({
   id: "twitter",
   name: "Twitter",
-  urlTemplate: "https://twitter.com/intent/tweet?text={summary}&url={url}"
+  urlTemplate: "https://twitter.com/intent/tweet?text={summary}&url={url}",
 });
 const LINKEDIN_ITEM = new ShareItem({
   id: "linkedin",
   name: "LinkedIn",
   urlTemplate:
-    "https://www.linkedin.com/shareArticle?url={url}&title={title}&summary={summary}"
+    "https://www.linkedin.com/shareArticle?url={url}&title={title}&summary={summary}",
 });
 const EMAIL_ITEM = new ShareItem({
   id: "email",
   name: "E-mail",
-  urlTemplate: "mailto:?subject={title}&body={summary}%20{url}"
+  urlTemplate: "mailto:?subject={title}&body={summary}%20{url}",
 });
 
 //----------------------------------
@@ -110,7 +110,7 @@ class ShareViewModel extends declared(Accessor) {
   //----------------------------------
   @property({
     dependsOn: ["view.ready"],
-    readOnly: true
+    readOnly: true,
   })
   get state(): State {
     const ready = this.get("view.ready");
@@ -132,7 +132,7 @@ class ShareViewModel extends declared(Accessor) {
   //----------------------------------
   @property({
     dependsOn: ["shareUrl"],
-    readOnly: true
+    readOnly: true,
   })
   get embedCode(): string {
     return `<iframe src="${this.shareUrl}" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>`;
@@ -164,13 +164,13 @@ class ShareViewModel extends declared(Accessor) {
   //
   //----------------------------------
   @property({
-    type: ShareItemCollection
+    type: ShareItemCollection,
   })
   shareItems: Collection<ShareItem> = new ShareItemCollection([
     FACEBOOK_ITEM,
     TWITTER_ITEM,
     LINKEDIN_ITEM,
-    EMAIL_ITEM
+    EMAIL_ITEM,
   ]);
 
   //----------------------------------
@@ -179,7 +179,7 @@ class ShareViewModel extends declared(Accessor) {
   //
   //----------------------------------
   @property({
-    type: ShareFeatures
+    type: ShareFeatures,
   })
   shareFeatures = new ShareFeatures();
 
@@ -225,7 +225,7 @@ class ShareViewModel extends declared(Accessor) {
     const centerPoint = new Point({
       x,
       y,
-      spatialReference
+      spatialReference,
     });
     // Use pointToConvert to project point. Once projected, pass point to generate the share URL parameters
     const point = await this._processPoint(centerPoint);
@@ -242,12 +242,12 @@ class ShareViewModel extends declared(Accessor) {
     if (!projection.isSupported()) {
       const point = new Point({
         x: null,
-        y: null
+        y: null,
       });
       return point;
     }
     const outputSpatialReference = new SpatialReference({
-      wkid: 4326
+      wkid: 4326,
     });
     this._projecting = true;
     this.notifyChange("state");
@@ -298,11 +298,16 @@ class ShareViewModel extends declared(Accessor) {
   private async _shorten(url: string): Promise<string> {
     this._shortening = true;
     this.notifyChange("state");
+    setTimeout(() => {
+      console.warn(
+        `If you are not serving the file over http, the URL shortening will error.`
+      );
+    }, 2500);
     const request = await esriRequest(SHORTEN_API, {
       query: {
         longUrl: url,
-        f: "json"
-      }
+        f: "json",
+      },
     });
     this._shortening = false;
     this.notifyChange("state");

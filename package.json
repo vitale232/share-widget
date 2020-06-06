@@ -1,0 +1,36 @@
+{
+  "name": "share-widget",
+  "version": "1.0.0",
+  "description": "Share widget built for version 4.x of the ArcGIS API for Javascript",
+  "main": "index.js",
+  "scripts": {
+    "build-css": "node-sass --output-style compressed Share/css/Share.scss > Share/assets/Share.css",
+    "build-widget": "tsc",
+    "watch-build-widget": "tsc -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Esri/share-widget.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Esri/share-widget/issues"
+  },
+  "homepage": "https://github.com/Esri/share-widget#readme",
+  "dependencies": {
+    "@dojo/core": "^2.0.0",
+    "@dojo/has": "^2.0.0",
+    "@dojo/i18n": "github:dojo/i18n",
+    "@dojo/shim": "^2.0.0",
+    "@types/arcgis-js-api": "^4.15.0",
+    "dojo": "^1.16.2"
+  },
+  "devDependencies": {
+    "dojo-typings": "^1.11.10",
+    "http-server": "^0.12.3",
+    "node-sass": "^4.14.1"
+  }
+}
