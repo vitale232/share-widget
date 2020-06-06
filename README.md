@@ -4,6 +4,56 @@ Share widget built for version 4.x of the ArcGIS API for Javascript
 
 ![share-widget](https://github.com/Esri/share-widget/blob/master/images/share-link.png?raw=true)​
 
+This repository is a fork of the original with some added tooling.
+
+## Why the Fork?
+
+The Esri JS API custom widget framework is pretty well documented, but there are two things missing from my perspective.
+
+1. `ViewModel` examples
+2. Build examples
+
+The JS API makes heavy usage of `ViewModels`, and their advantages to end users are quite apparent. However, if you're looking to develop a custom widget that includes a `ViewModel`, the only good example I've found is the Share widget. The official documentation merely makes mention of the `ViewModel` architecture, and a quick summary of the benefits to the developer.
+
+On the other hand, the Share widget does not do us any favors when it comes to trying to build the TypeScript and load the widget up into a Map. There is one closed issue in the GitHub repo that helps point out some of the imports, but I found that a substantial amount of configuration for TypeScript's compilerOptions was necessary.
+
+This fork aims to address issue 2, by providing a repeatable method of building the Esri Share Widget using NPM. By solving issue 2, we help to solve issue 1, as it
+
+## Building the Widget
+
+To build the widget, start by cloning this repository. Make sure you have Node.js installed on your computer, then run the following command from the root of this repository:
+
+```shell
+npm install
+```
+
+That will install the necessary dependencies and development dependencies to get the `index.html` file to load successfully.
+
+Once the dependencies are installed, you'll want to compile the Sass files into CSS so that they can be consumed by the browser. You'll also need to compile the TypeScript into JavaScript files. This repo includes NPM scripts in the `package.json` file to make these tasks simple.
+
+```shell
+npm run build-css
+npm run build-widget
+```
+
+Once the files are stored, you can use the npm `http-server` package to serve up `index.html`. This is necessary because the Share Widget sends the URL of the page off to an Esri server to be shortened, making it more shareable. The Esri server expects to receive a URL (that starts with http:// or https://), not a filepath. By using the http-server, we avoid errors from the Share Widget's `ViewModel`.
+
+To serve the page, run the following command from the root directory of this repo:
+
+```shell
+http-server
+```
+
+Then, navigate in your browser to http://127.0.0.1:8081/index.html and you should see a map of the continental United States, with the Esri Share widget in the bottom right corner of the map.
+
+Note that there is also a convenience script that will recompile the TypeScript every time a TS file is updated. You can run the following command to have the files watched:
+
+```shell
+npm run watch-build-widget
+```
+
+You will still need to refresh the browser to see the latest updates.
+
 ## Features:
 
 1.  `MapView` and `SceneView` compatability
@@ -19,7 +69,7 @@ Share widget built for version 4.x of the ArcGIS API for Javascript
     - Shorten URL
     - Embed Map
 
-***Note:** Share Widget uses Esri's Calcite CSS Styles.*
+**\*Note:** Share Widget uses Esri's Calcite CSS Styles.\*
 
 Calcite Web Documentation: https://esri.github.io/calcite-web/documentation/
 
