@@ -15,7 +15,7 @@ The Esri JS API custom widget framework is pretty well documented, but there are
 
 The JS API makes heavy usage of `ViewModels`, and their advantages to end users are quite apparent. However, if you're looking to develop a custom widget that includes a `ViewModel`, the only good example I've found is the Share widget. The official documentation merely makes mention of the `ViewModel` architecture, and a quick summary of the benefits to the developer.
 
-On the other hand, the Share widget does not do us any favors when it comes to trying to build the TypeScript and load the widget up into a Map. There is one closed issue in the GitHub repo that helps point out some of the imports, but I found that a substantial amount of configuration for TypeScript's compilerOptions was necessary.
+the Esri Share widget repository provides some great Widget source code, but there's not many clues on how to build the TypeScript and load the widget up into a Map. There is one closed issue in the GitHub repo that helps point out some of the imports, but I found that a substantial amount of configuration for TypeScript's compilerOptions was necessary.
 
 This fork aims to address issue 2, by providing a repeatable method of building the Esri Share Widget using NPM. By solving issue 2, we hopefully help to solve issue 1.
 
